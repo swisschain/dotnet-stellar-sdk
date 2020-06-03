@@ -8,7 +8,7 @@
     <RootNamespace>stellar_dotnet_sdk</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>The .NET Stellar SDK facilitates client integration with the Stellar Horizon API server and submission of Stellar transactions. It has two main uses: querying Horizon and building, signing, and submitting transactions to the Stellar network.</Description>
-    <PackageId>stellar-dotnet-sdk</PackageId>
+    <PackageId>Swisschain.stellar-dotnet-sdk</PackageId>
     <PackageLicense>sss</PackageLicense>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <Copyright>elucidsoft 2018</Copyright>
@@ -35,4 +35,21 @@
   <ItemGroup>
     <ProjectReference Include="..\stellar-dotnet-sdk-xdr\stellar-dotnet-sdk-xdr.csproj" />
   </ItemGroup>
+
+  <!--
+    The following solves the problem that 'dotnet pack' does not include the DLLs from referenced projects.
+    See https://github.com/NuGet/Home/issues/3891 for a description of the problem
+    and for newer versions / workarounds / built-in methods.
+  -->
+  <PropertyGroup>
+    <TargetsForTfmSpecificBuildOutput>
+      $(TargetsForTfmSpecificBuildOutput);PackReferencedProjectOutputs
+    </TargetsForTfmSpecificBuildOutput>
+  </PropertyGroup>
+
+  <Target Name="PackReferencedProjectOutputs" DependsOnTargets="BuildOnlySettings;ResolveReferences">
+    <ItemGroup>
+      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
+    </ItemGroup>
+  </Target>
 </Project>
