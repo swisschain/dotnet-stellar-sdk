@@ -85,6 +85,8 @@ namespace stellar_dotnet_sdk.responses
                         return Memo.Hash(Convert.FromBase64String(MemoValue));
                     case "return":
                         return Memo.ReturnHash(Convert.FromBase64String(MemoValue));
+                    case "text":
+                        return Memo.Text(MemoValue);
                     default:
                         throw new ArgumentException(nameof(MemoType));
                 }
@@ -108,6 +110,10 @@ namespace stellar_dotnet_sdk.responses
                     case MemoReturnHash r:
                         MemoType = "return";
                         MemoValue = Convert.ToBase64String(r.MemoBytes);
+                        return;
+                    case MemoText t:
+                        MemoType = "text";
+                        MemoValue = t.MemoTextValue;
                         return;
                     default:
                         throw new ArgumentException(nameof(value));
