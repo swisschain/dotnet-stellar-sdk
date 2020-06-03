@@ -22,8 +22,8 @@ jobs:
       run: dotnet test --no-build --configuration Release
       working-directory: src
     - name: Pack
-      run: dotnet pack --no-build --include-symbols --include-source --configuration Release Swisschain.Sirius.Sdk /p:Version=${GITHUB_REF#refs/tags/}
+      run: dotnet pack --no-build --include-symbols --include-source --configuration Release stellar-dotnet-sdk /p:Version=${GITHUB_REF#refs/tags/}
       working-directory: src
     - name: Publish
-      run: dotnet nuget push Swisschain.Sirius.Sdk/bin/Release/*.nupkg -s "https://api.nuget.org/v3/index.json" -k ${{ secrets.NUGET_TOCKEN }}
+      run: dotnet nuget push stellar-dotnet-sdk/bin/Release/*.nupkg -s "https://api.nuget.org/v3/index.json" -k ${{ secrets.NUGET_TOCKEN }}
       working-directory: src
