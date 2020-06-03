@@ -23,3 +23,5 @@ jobs:
       run: dotnet pack --no-build --include-symbols --include-source --configuration Release stellar-dotnet-sdk /p:Version=${GITHUB_REF#refs/tags/}
     - name: Publish
       run: dotnet nuget push stellar-dotnet-sdk/bin/Release/Swisschain.stellar-dotnet-sdk.${GITHUB_REF#refs/tags/}.nupkg -s "https://api.nuget.org/v3/index.json" -k ${{ secrets.NUGET_TOCKEN }}
+    - name: Publish
+      run: dotnet nuget push stellar-dotnet-sdk-xdr/bin/Release/Swisschain.stellar-dotnet-sdk-xdr.${GITHUB_REF#refs/tags/}.nupkg -s "https://api.nuget.org/v3/index.json" -k ${{ secrets.NUGET_TOCKEN }}
