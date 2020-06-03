@@ -1,16 +1,29 @@
-name: Create Draft Release
+name: Deploy nuget package
 
 on:
   push:
-    # branches to consider in the event; optional, defaults to all
-    branches:
-      - master
+    tags: "*"
 
 jobs:
-  update_draft_release:
+  build:
+
     runs-on: ubuntu-latest
+
     steps:
-      # Drafts your next Release notes as Pull Requests are merged into "master"
-      - uses: toolmantim/release-drafter@v5.2.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.100
+    - name: Build
+      run: dotnet build --configuration Release
+      working-directory: src
+    - name: Test
+      run: dotnet test --no-build --configuration Release
+      working-directory: src
+    - name: Pack
+      run: dotnet pack --no-build --include-symbols --include-source --configuration Release Swisschain.Sirius.Sdk /p:Version=${GITHUB_REF#refs/tags/}
+      working-directory: src
+    - name: Publish
+      run: dotnet nuget push Swisschain.Sirius.Sdk/bin/Release/*.nupkg -s "https://api.nuget.org/v3/index.json" -k ${{ secrets.NUGET_TOCKEN }}
+      working-directory: src
