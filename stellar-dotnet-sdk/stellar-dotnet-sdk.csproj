@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\stellar-dotnet-sdk-xdr\stellar-dotnet-sdk-xdr.csproj" />
+    <ProjectReference Include="..\stellar-dotnet-sdk-xdr\stellar-dotnet-sdk-xdr.csproj" PrivateAssets="All"/>
   </ItemGroup>
 
   <!--
