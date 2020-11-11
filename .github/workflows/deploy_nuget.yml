@@ -16,7 +16,7 @@ jobs:
       with:
         dotnet-version: 2.1.806
     - name: Build
-      run: dotnet build --configuration Release
+      run: dotnet build --configuration Release /p:Version=${GITHUB_REF#refs/tags/}
     - name: Test
       run: dotnet test --no-build --configuration Release
     - name: Pack
@@ -24,6 +24,6 @@ jobs:
     - name: Pack
       run: dotnet pack --no-build --include-symbols --include-source --configuration Release stellar-dotnet-sdk-xdr /p:Version=${GITHUB_REF#refs/tags/}
     - name: Publish
-      run: dotnet nuget push /home/runner/work/dotnet-stellar-sdk/dotnet-stellar-sdk/stellar-dotnet-sdk/bin/Release/Swisschain.stellar-dotnet-sdk.${GITHUB_REF#refs/tags/}.nupkg -s "https://api.nuget.org/v3/index.json" -k ${{ secrets.NUGET_TOCKEN }}
+      run: dotnet nuget push stellar-dotnet-sdk/bin/Release/Swisschain.stellar-dotnet-sdk.${GITHUB_REF#refs/tags/}.nupkg -s "https://api.nuget.org/v3/index.json" -k ${{ secrets.NUGET_TOCKEN }}
     - name: Publish
-      run: dotnet nuget push /home/runner/work/dotnet-stellar-sdk/dotnet-stellar-sdk/stellar-dotnet-sdk-xdr/bin/Release/Swisschain.stellar-dotnet-sdk-xdr.${GITHUB_REF#refs/tags/}.nupkg -s "https://api.nuget.org/v3/index.json" -k ${{ secrets.NUGET_TOCKEN }}
+      run: dotnet nuget push stellar-dotnet-sdk-xdr/bin/Release/Swisschain.stellar-dotnet-sdk-xdr.${GITHUB_REF#refs/tags/}.nupkg -s "https://api.nuget.org/v3/index.json" -k ${{ secrets.NUGET_TOCKEN }}
