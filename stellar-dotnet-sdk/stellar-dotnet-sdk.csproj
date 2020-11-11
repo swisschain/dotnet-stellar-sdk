@@ -8,7 +8,7 @@
     <RootNamespace>stellar_dotnet_sdk</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>The .NET Stellar SDK facilitates client integration with the Stellar Horizon API server and submission of Stellar transactions. It has two main uses: querying Horizon and building, signing, and submitting transactions to the Stellar network.</Description>
-    <PackageId>stellar-dotnet-sdk</PackageId>
+    <PackageId>Swisschain.stellar-dotnet-sdk-xdr</PackageId>
     <PackageLicense>sss</PackageLicense>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <Copyright>elucidsoft 2018</Copyright>
